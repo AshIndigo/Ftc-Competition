@@ -24,7 +24,7 @@ public class TestOp extends PushBotTelemetry {
 
             speed++;
 
-        } else {
+        } else if (gamepad1.dpad_down) {
 
             speed--;
         }
