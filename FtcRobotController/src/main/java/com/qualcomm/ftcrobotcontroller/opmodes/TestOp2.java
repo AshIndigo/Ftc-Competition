@@ -41,11 +41,11 @@ public class TestOp2 extends PushBotTelemetry {
                 - (float)scale_motor_power (gamepad1.left_trigger);
         m_left_arm_power (l_left_arm_power);
 
-        if (gamepad1.x)
+        if (gamepad1.dpad_right)
         {
             m_hand_position (a_hand_position () + 0.05);
         }
-        else if (gamepad1.b)
+        else if (gamepad1.dpad_left)
         {
             m_hand_position (a_hand_position () - 0.05);
         }
