@@ -1,57 +1,61 @@
 package com.qualcomm.ftcrobotcontroller.opmodes;
 
+import android.util.Log;
+
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.Servo;
+
 public class TestOp extends PushBotTelemetry {
 
-    int speed;
+    public TestOp() {
 
-    public TestOp () {
-
-
-    } // PushBotManual1
+    }
 
     @Override public void loop ()
 
     {
-        double l_gp1_left_stick_y = gamepad1.left_stick_y;
-        double l_left_drive_power
-                = scale_motor_power ((float) l_gp1_left_stick_y);
+        Servo lHand = hardwareMap.servo.get("right_hand");
 
-        double l_gp1_right_stick_y = gamepad1.right_stick_y;
-        double l_right_drive_power
-                = scale_motor_power ((float) l_gp1_right_stick_y);
+        Servo rHand = hardwareMap.servo.get("left_hand");
 
-        if (gamepad1.dpad_up) {
+        DcMotor rightArm = hardwareMap.dcMotor.get("right_arm");
 
-            speed++;
+        double l_left_drive_power = scale_motor_power(gamepad1.left_stick_y);
 
-        } else if (gamepad1.dpad_down) {
+        double l_right_drive_power = scale_motor_power(gamepad1.right_stick_y);
 
-            speed--;
+        set_drive_power(l_left_drive_power, l_right_drive_power);
+
+        float l_left_arm_power = gamepad2.left_stick_y;
+        m_left_arm_power(l_left_arm_power);
+
+        float l_right_arm_power = gamepad2.right_stick_y;
+        rightArm.setPower(l_right_arm_power);
+
+        if (gamepad1.x) {
+            rHand.setPosition(rHand.getPosition() + .05);
+            lHand.setPosition(lHand.getPosition() - .05);
+        } else if (gamepad1.b) {
+            rHand.setPosition(rHand.getPosition() - .05);
+            lHand.setPosition(lHand.getPosition() + .05);
         }
 
-        set_drive_power (l_left_drive_power * speed, l_right_drive_power * speed);
+        //m_hand_position(0);
 
-        float l_left_arm_power
-                = (float)scale_motor_power (gamepad1.right_trigger)
-                - (float)scale_motor_power (gamepad1.left_trigger);
-        m_left_arm_power (l_left_arm_power);
-
-        if (gamepad1.x)
-        {
-            m_hand_position (a_hand_position () + 0.05);
-        }
-        else if (gamepad1.b)
-        {
-            m_hand_position (a_hand_position () - 0.05);
-        }
-
-        update_telemetry (); // Update common telemetry
-        update_gamepad_telemetry ();
+        update_telemetry(); // Update common telemetry
+        update_gamepad_telemetry();
         telemetry.addData
-                ( "12"
+                ("12"
                         , "Left Arm: " + l_left_arm_power
                 );
+       // /*
+        telemetry.addData
+                ("13"
+                        , "Right Arm: " + l_right_arm_power
+                );
+                //*/
 
-    } // loop
 
-} // PushBotManual1
+    }
+
+}

@@ -2,8 +2,6 @@ package com.qualcomm.ftcrobotcontroller.opmodes;
 
 public class TestOp2 extends PushBotTelemetry {
 
-    int speed;
-
     public TestOp2() {
 
 
@@ -20,21 +18,7 @@ public class TestOp2 extends PushBotTelemetry {
         double l_right_drive_power
                 = scale_motor_power ((float) l_gp1_right_stick_y);
 
-        if (gamepad1.dpad_up) {
-
-            speed++;
-
-        } else if (gamepad1.dpad_down) {
-
-            speed--;
-        }
-
-        else {
-
-
-        }
-
-        set_drive_power (l_left_drive_power * speed, l_right_drive_power * speed);
+        set_drive_power (l_left_drive_power, l_right_drive_power);
 
         float l_left_arm_power
                 = (float)scale_motor_power (gamepad1.right_trigger)
