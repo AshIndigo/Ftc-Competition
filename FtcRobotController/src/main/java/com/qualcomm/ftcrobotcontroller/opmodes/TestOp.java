@@ -7,16 +7,18 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 public class TestOp extends PushBotTelemetry {
 
+    Servo lHand;
+    Servo rHand;
+
     public TestOp() {
 
     }
 
-    @Override public void loop ()
+    @Override public void loop () {
 
-    {
-        Servo lHand = hardwareMap.servo.get("right_hand");
+        lHand = hardwareMap.servo.get("right_hand");
 
-        Servo rHand = hardwareMap.servo.get("left_hand");
+        rHand = hardwareMap.servo.get("left_hand");
 
         DcMotor rightArm = hardwareMap.dcMotor.get("right_arm");
 
@@ -30,17 +32,21 @@ public class TestOp extends PushBotTelemetry {
         m_left_arm_power(l_left_arm_power);
 
         float l_right_arm_power = gamepad2.right_stick_y;
-        rightArm.setPower(l_right_arm_power);
+        rightArm.setPower(l_right_arm_power * -1);
 
-        if (gamepad1.x) {
-            rHand.setPosition(rHand.getPosition() + .05);
-            lHand.setPosition(lHand.getPosition() - .05);
-        } else if (gamepad1.b) {
-            rHand.setPosition(rHand.getPosition() - .05);
-            lHand.setPosition(lHand.getPosition() + .05);
+        if (gamepad2.left_bumper) {
+            rHand.setPosition(1);
+            lHand.setPosition(0);
         }
 
-        //m_hand_position(0);
+        if (gamepad2.right_bumper) {
+            rHand.setPosition(0);
+            lHand.setPosition(1);
+        }
+        if (gamepad2.right_trigger != 0) {
+            rHand.setPosition(.5);
+            lHand.setPosition(.5);
+        }
 
         update_telemetry(); // Update common telemetry
         update_gamepad_telemetry();
@@ -48,14 +54,20 @@ public class TestOp extends PushBotTelemetry {
                 ("12"
                         , "Left Arm: " + l_left_arm_power
                 );
-       // /*
         telemetry.addData
                 ("13"
                         , "Right Arm: " + l_right_arm_power
                 );
-                //*/
+        telemetry.addData
+                ("14"
+                        , "Left Servo Pos: " + lHand.getPosition()
+                );
+        telemetry.addData
+                ("15"
+                        , "Right Servo Pos: " + rHand.getPosition()
+                );
+
 
 
     }
-
 }

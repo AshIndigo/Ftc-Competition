@@ -272,7 +272,7 @@ public class PushBotHardware extends OpMode
     /**
      * Scale the joystick input using a nonlinear algorithm.
      */
-    float scale_motor_power (float p_power)
+     float scale_motor_power (float p_power)
     {
         //
         // Assume no scaling.
@@ -1005,7 +1005,7 @@ public class PushBotHardware extends OpMode
     /**
      * Manage the aspects of the left drive motor.
      */
-    private DcMotor v_motor_left_drive;
+    public DcMotor v_motor_left_drive;
 
     //--------------------------------------------------------------------------
     //
@@ -1014,7 +1014,7 @@ public class PushBotHardware extends OpMode
     /**
      * Manage the aspects of the right drive motor.
      */
-    private DcMotor v_motor_right_drive;
+    public DcMotor v_motor_right_drive;
 
     //--------------------------------------------------------------------------
     //
@@ -1023,7 +1023,7 @@ public class PushBotHardware extends OpMode
     /**
      * Manage the aspects of the left arm motor.
      */
-    private DcMotor v_motor_left_arm;
+    public DcMotor v_motor_left_arm;
 
     //--------------------------------------------------------------------------
     //
@@ -1032,7 +1032,7 @@ public class PushBotHardware extends OpMode
     /**
      * Manage the aspects of the left hand servo.
      */
-    private Servo v_servo_left_hand;
+    public Servo v_servo_left_hand;
 
     //--------------------------------------------------------------------------
     //
@@ -1041,6 +1041,6 @@ public class PushBotHardware extends OpMode
     /**
      * Manage the aspects of the right hand servo.
      */
-    private Servo v_servo_right_hand;
+    public Servo v_servo_right_hand;
 
 } // PushBotHardware
